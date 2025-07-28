@@ -1,0 +1,9 @@
+[versions]
+kotlin = "2.2.0"
+shadowjar = "9.0.0-rc2"
+userdev = "2.0.0-beta.18"
+
+[libraries]
+gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+gradle-paperweight-userdev = { module = "io.papermc.paperweight:paperweight-userdev", version.ref = "userdev" }
+gradle-shadowjar = { module = "com.gradleup.shadow:shadow-gradle-plugin", version.ref = "shadowjar" }
