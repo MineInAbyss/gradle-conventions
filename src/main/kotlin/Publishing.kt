@@ -5,6 +5,7 @@ import org.gradle.kotlin.dsl.credentials
 fun PublishingExtension.addMineInAbyssRepo() {
     repositories {
         maven {
+            name = "mineinabyssMaven"
             val repo = "https://repo.mineinabyss.com/"
             val isSnapshot = System.getenv("IS_SNAPSHOT") == "true"
             val url = if (isSnapshot) repo + "snapshots" else repo + "releases"
