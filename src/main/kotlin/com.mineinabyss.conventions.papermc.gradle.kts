@@ -15,13 +15,11 @@ dependencies {
 }
 
 tasks {
+    val version = version // FIXME workaround for configuration cache not allowing us to read version in tasks
     processResources {
-        // work around IDEA-296490
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
-        copySpec {
-            filesMatching(setOf("plugin.yml", "paper-plugin.yml")) {
-                expand(mutableMapOf("plugin_version" to version))
-            }
+        filesMatching(setOf("plugin.yml", "paper-plugin.yml")) {
+            expand(mutableMapOf("plugin_version" to version))
         }
     }
 }

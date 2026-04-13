@@ -10,7 +10,7 @@ val idoExt = getIdoExtension()
 
 afterEvaluate {
     dependencies {
-        "docs"("me.dvyy:shocky-docs:${idoExt.docsVersion.getOrElse("0.0.4")}")
+        "docs"("me.dvyy:shocky-docs:${idoExt.docsVersion.get()}")
     }
 }
 

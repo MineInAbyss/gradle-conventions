@@ -7,4 +7,6 @@ interface IdofrontExtension {
 }
 
 fun Project.getIdoExtension() = extensions.findByType(IdofrontExtension::class.java)
-    ?: project.extensions.create("idofront", IdofrontExtension::class.java)
+    ?: project.extensions.create("idofront", IdofrontExtension::class.java).apply {
+        docsVersion.convention("0.0.8")
+    }
