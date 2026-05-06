@@ -3,9 +3,7 @@ plugins {
     kotlin("jvm")
 }
 
-val libs = idofrontLibsRef
-
-val jvmVersion: Int = libs.findVersion("java").get().toString().toInt()
+val ido = getIdoExtension()
 
 repositories {
     mavenCentral()
@@ -16,9 +14,8 @@ java {
     withSourcesJar()
 }
 
-val idoExtension = getIdoExtension()
-if (idoExtension.setJvmToolchain.getOrElse(true)) {
+if (ido.setJvmToolchain.getOrElse(true)) {
     kotlin {
-        jvmToolchain(jvmVersion)
+        jvmToolchain(ido.jvmVersion.get())
     }
 }

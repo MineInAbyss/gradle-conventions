@@ -7,12 +7,9 @@ repositories {
     maven("https://repo.mineinabyss.com/releases")
 }
 
-val libs = idofrontLibsRef
-val jvmVersion: Int = libs.findVersion("jvm-for-kotlin-multiplatform").get().toString().toInt()
-
-val idoExtension = getIdoExtension()
-if (idoExtension.setJvmToolchain.getOrElse(true)) {
+val ido = getIdoExtension()
+if (ido.setJvmToolchain.getOrElse(true)) {
     kotlin {
-        jvmToolchain(jvmVersion)
+        jvmToolchain(ido.jvmVersion.get())
     }
 }

@@ -1,8 +1,10 @@
 plugins {
     java
+    id("de.eldoria.plugin-yml.paper")
 }
 
-val libs = idofrontLibsRef
+val ido = getIdoExtension()
+
 
 repositories {
     maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
@@ -10,17 +12,5 @@ repositories {
 }
 
 dependencies {
-    compileOnly(libs.findLibrary("minecraft-papermc").get())
-}
-
-tasks {
-    processResources {
-        // work around IDEA-296490
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
-        copySpec {
-            filesMatching(setOf("plugin.yml", "paper-plugin.yml")) {
-                expand(mutableMapOf("plugin_version" to version))
-            }
-        }
-    }
+    compileOnly(ido.paperDependency.get())
 }

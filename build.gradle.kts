@@ -16,6 +16,7 @@ dependencies {
     implementation(libs.gradle.kotlin)
     implementation(libs.gradle.shadowjar)
     implementation(libs.gradle.paperweight.userdev)
+    implementation(libs.gradle.plugin.yml)
 }
 
 // Publish a catalog containing all our conventions plugins

@@ -1,8 +1,9 @@
 plugins {
     java
+    id("de.eldoria.plugin-yml.paper")
 }
 
-val libs = idofrontLibsRef
+val ido = getIdoExtension()
 
 repositories {
     mavenLocal()
@@ -11,15 +12,5 @@ repositories {
 }
 
 dependencies {
-    compileOnly(libs.findLibrary("minecraft-papermc").get())
-}
-
-tasks {
-    val version = version // FIXME workaround for configuration cache not allowing us to read version in tasks
-    processResources {
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
-        filesMatching(setOf("plugin.yml", "paper-plugin.yml")) {
-            expand(mutableMapOf("plugin_version" to version))
-        }
-    }
+    compileOnly(ido.paperDependency.get())
 }

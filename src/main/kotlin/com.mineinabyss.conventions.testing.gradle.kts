@@ -1,8 +1,8 @@
-val libs = idofrontLibsRef
-
 plugins {
     java
 }
+
+val libs = idofrontLibsRef ?: error("idofrontLibs catalog not found!")
 
 dependencies {
     // Junit

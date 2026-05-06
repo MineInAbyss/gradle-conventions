@@ -2,6 +2,8 @@ import java.net.URL
 import java.util.*
 
 tasks.register("updateIdofrontVersion") {
+    description = "Updates idofrontVersion in gradle.properties to the latest release on GitHub"
+
     doLast {
         val githubApiUrl = "https://api.github.com/repos/MineInAbyss/Idofront/releases/latest"
         val connection = URL(githubApiUrl).openConnection()

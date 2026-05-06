@@ -5,7 +5,7 @@ plugins {
     kotlin("multiplatform")
 }
 
-val libs = idofrontLibsRef
+val libs = idofrontLibsRef ?: error("idofrontLibs catalog not found!")
 
 repositories {
     mavenCentral()
