@@ -14,3 +14,8 @@ repositories {
 dependencies {
     compileOnly(ido.paperDependency.get())
 }
+
+paper {
+    this.version = project.version.toString()
+    apiVersion = "1.21"
+}

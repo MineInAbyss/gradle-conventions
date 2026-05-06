@@ -10,6 +10,11 @@ interface IdofrontExtension {
     val jvmVersion: Property<Int>
 }
 
+/**
+ * Entrypoint for getting `idofront` extension with some preconfigured defaults (conventions) for properties.
+ *
+ * These either manually set a default, try to read it from an `idofrontLibs` catalog, or throw a descriptive error.
+ */
 fun Project.getIdoExtension() = extensions.findByType(IdofrontExtension::class.java)
     ?: project.extensions.create("idofront", IdofrontExtension::class.java).apply {
         val idoLibs = idofrontLibsRef
@@ -22,6 +27,6 @@ fun Project.getIdoExtension() = extensions.findByType(IdofrontExtension::class.j
         )
         paperDependency.convention(minecraftVersion.map { "io.papermc.paper:paper-api:$it" })
         jvmVersion.convention(provider {
-            idoLibs?.findVersion("jvm-for-kotlin-multiplatform")?.getOrNull()?.toString()?.toInt() ?: 21
+            idoLibs?.findVersion("java")?.getOrNull()?.toString()?.toInt() ?: 21
         })
     }

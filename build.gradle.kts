@@ -55,3 +55,12 @@ publishing {
         }
     }
 }
+
+tasks {
+    register("docsServe") {
+        dependsOn(gradle.includedBuild("docs").task(":docsServe"))
+    }
+    register("docsGenerate") {
+        dependsOn(gradle.includedBuild("docs").task(":docsGenerate"))
+    }
+}
