@@ -3,11 +3,19 @@ plugins {
     kotlin("jvm")
 }
 
-val ido = getIdoExtension()
+private val ido = getIdoExtension()
 
 repositories {
     mavenCentral()
     maven("https://repo.mineinabyss.com/releases")
+}
+
+if (ido.enableContextParameters.get()) kotlin {
+    compilerOptions {
+        freeCompilerArgs.addAll(
+            "-Xcontext-parameters",
+        )
+    }
 }
 
 java {

@@ -1,5 +1,6 @@
 import org.gradle.api.Project
 import org.gradle.api.provider.Property
+import org.gradle.api.provider.Provider
 import kotlin.jvm.optionals.getOrNull
 
 interface IdofrontExtension {
@@ -8,6 +9,7 @@ interface IdofrontExtension {
     val minecraftVersion: Property<String>
     val paperDependency: Property<String>
     val jvmVersion: Property<Int>
+    val enableContextParameters: Property<Boolean>
 }
 
 /**
@@ -18,15 +20,12 @@ interface IdofrontExtension {
 fun Project.getIdoExtension() = extensions.findByType(IdofrontExtension::class.java)
     ?: project.extensions.create("idofront", IdofrontExtension::class.java).apply {
         val idoLibs = idofrontLibsRef
-        docsVersion.convention("0.0.8")
-        minecraftVersion.convention(
-            provider {
-                idoLibs?.findVersion("minecraft")?.getOrNull()?.toString()
-                    ?: error("Minecraft version not set, either add idofrontLibs catalog or set it in the idofront extension!")
-            }
-        )
+        fun versionOrElse(name: String, orElse: () -> String): Provider<String> =
+            provider { idoLibs?.findVersion(name)?.getOrNull()?.toString() ?: orElse() }
+
+        docsVersion.convention(versionOrElse("shocky-docs") { "0.0.8" })
+        minecraftVersion.convention(versionOrElse("minecraft") { error("Minecraft version not set, either add idofrontLibs catalog or set it in the idofront extension!") })
         paperDependency.convention(minecraftVersion.map { "io.papermc.paper:paper-api:$it" })
-        jvmVersion.convention(provider {
-            idoLibs?.findVersion("java")?.getOrNull()?.toString()?.toInt() ?: 21
-        })
+        jvmVersion.convention(versionOrElse("java") { "21" }.map { it.toInt() })
+        enableContextParameters.convention(true)
     }

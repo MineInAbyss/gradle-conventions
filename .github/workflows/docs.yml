@@ -19,19 +19,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: MineInAbyss/publish-action@v3
+      - uses: MineInAbyss/publish-action/docs@develop
         with:
-          publish-github-release: false
+          outputDir: 'docs/out'
           build-tasks: ':docs:docsGenerate'
-
-      - name: Update HTML links for GitHub Pages subdomain
-        run: |
-          find 'docs/out' -name "*.html" -exec sed -i 's#href="/#href="/gradle-conventions/#g; s#src="/#src="/gradle-conventions/#g' {} \;
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs/out
 
   deploy:
     environment:
