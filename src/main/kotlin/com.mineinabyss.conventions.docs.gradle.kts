@@ -1,7 +1,7 @@
 import kotlin.io.path.createSymbolicLinkPointingTo
 
 plugins {
-    java apply false
+    java
 }
 
 repositories {
@@ -39,7 +39,7 @@ tasks {
     register("docsCreate") {
         description = "Creates documentation for this project from a template, or does nothing if it exists."
 
-        val docsDir = project.rootProject.layout.projectDirectory.dir("docs")
+        val docsDir = isolated.rootProject.projectDirectory.dir("docs")
         val nameInput = project.objects.property<String>().convention(project.name)
         inputs.properties("name" to nameInput)
         outputs.dir(docsDir)
@@ -58,7 +58,6 @@ tasks {
             )
             // Symlink index.md -> ../README.md
             docsDir.file("index.md").asFile.apply {
-//                val readmePath = project.rootProject.file("README.md").toPath()
                 toPath().createSymbolicLinkPointingTo(
                     kotlin.io.path.Path("../README.md")
                 )

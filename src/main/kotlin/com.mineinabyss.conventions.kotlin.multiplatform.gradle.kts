@@ -1,5 +1,3 @@
-import gradle.kotlin.dsl.accessors._9b81586b761fb2f481f7bedc1d52374d.kotlin
-
 plugins {
     kotlin("multiplatform")
 }
