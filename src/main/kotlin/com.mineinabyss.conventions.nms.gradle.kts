@@ -5,6 +5,7 @@ plugins {
 
 val idoExtension = getIdoExtension()
 
+//TODO we cant run this afterEvaluate, is this still reading the correct version?
 dependencies {
     paperweight.paperDevBundle(idoExtension.minecraftVersion)
 }

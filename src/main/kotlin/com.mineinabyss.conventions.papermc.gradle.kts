@@ -8,6 +8,8 @@ repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
 }
 
-dependencies {
-    compileOnly(ido.paperDependency.get())
+afterEvaluate {
+    dependencies {
+        compileOnly(ido.paperDependency.get())
+    }
 }
