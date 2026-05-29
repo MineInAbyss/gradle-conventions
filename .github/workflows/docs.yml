@@ -3,6 +3,8 @@ name: Publish Documentation
 on:
   workflow_dispatch:
   push:
+    paths:
+      - docs
     branches:
       - master
 
@@ -19,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: MineInAbyss/publish-action/docs@develop
+      - uses: MineInAbyss/publish-action/docs@v3
         with:
           outputDir: 'docs/out'
           build-tasks: ':docs:docsGenerate'
