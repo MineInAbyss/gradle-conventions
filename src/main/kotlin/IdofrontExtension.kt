@@ -39,7 +39,7 @@ fun Project.getIdoExtension() = extensions.findByType(IdofrontExtension::class.j
             provider { idoLibs?.findVersion(name)?.getOrNull()?.toString() ?: orElse() }
 
         docsVersion.convention(versionOrElse("shocky-docs") { "0.0.8" })
-        minecraftVersion.convention(versionOrElse("minecraft") { error("Minecraft version not set, either add idofrontLibs catalog or set it in the idofront extension!") })
+        minecraftVersion.convention(versionOrElse("minecraft.server") { error("Minecraft version not set, either add idofrontLibs catalog or set it in the idofront extension!") })
         paperDependency.convention(minecraftVersion.map { "io.papermc.paper:paper-api:$it" })
         jvmVersion.convention(versionOrElse("java") { "21" }.map { it.toInt() })
         enableContextParameters.convention(true)
