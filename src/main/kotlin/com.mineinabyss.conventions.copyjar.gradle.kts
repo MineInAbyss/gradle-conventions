@@ -11,11 +11,16 @@ interface CopyJarExtension {
 
     val jarName: Property<String>
 
+    val generatePluginYml: Property<Boolean>
+
     val excludePlatformDependencies: Property<Boolean>
 }
 
 val pluginPath = project.findProperty("plugin_path") as? String
-val copyJar = project.extensions.create<CopyJarExtension>("copyJar")
+val copyJar = project.extensions.create<CopyJarExtension>("copyJar").apply {
+    generatePluginYml.convention(true)
+    excludePlatformDependencies.convention(true)
+}
 val idoLibs = idofrontLibsRef
 
 if (pluginPath != null) {
@@ -44,7 +49,7 @@ if (pluginPath != null) {
 
 afterEvaluate {
     configurations.named("runtimeClasspath").configure {
-        if (!copyJar.excludePlatformDependencies.getOrElse(true) || idoLibs == null) return@configure
+        if (!copyJar.excludePlatformDependencies.get() || idoLibs == null) return@configure
         val platformDeps = idoLibs.findBundle("platform").getOrNull()?.getOrNull() ?: emptyList()
         val idofrontDeps = idoLibs.findBundle("idofront-core").getOrNull()?.getOrNull() ?: emptyList()
 
@@ -61,4 +66,10 @@ afterEvaluate {
 paper {
     this.version = project.version.toString()
     apiVersion = "1.21"
+}
+
+tasks {
+    generatePaperPluginDescription.configure {
+        enabled = copyJar.generatePluginYml.get()
+    }
 }
