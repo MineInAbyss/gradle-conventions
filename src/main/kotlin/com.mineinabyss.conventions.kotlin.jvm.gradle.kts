@@ -6,6 +6,8 @@ plugins {
 repositories {
     mavenCentral()
     maven("https://repo.mineinabyss.com/releases")
+    maven("https://repo.mineinabyss.com/snapshots")
+    maven("https://repo.mineinabyss.com/mirror")
 }
 
 
